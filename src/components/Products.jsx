@@ -8,42 +8,63 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { InventoryContext } from "@/context/InventoryContext";
 
 function Products() {
+  // Accessing context for serial data
+  const { setSerialData } = useContext(InventoryContext);
+
+  // State for managing new product entries
   const [newProduct, setNewProduct] = useState([
-    { product: "", quantity: "", selected: false },
+    { product: "", quantity: "", selected: false, serialNumbers: [] },
   ]);
 
+  // Function to add a new product entry
   const addNewProduct = () => {
     setNewProduct([
       ...newProduct,
-      { product: "", quantity: "", selected: false },
+      { product: "", quantity: "", selected: false, serialNumbers: [] },
     ]);
   };
 
+  // Function to handle product selection change
   const handleProductChange = (index, selectedProduct) => {
     const updatedProducts = [...newProduct];
     updatedProducts[index].product = selectedProduct;
     setNewProduct(updatedProducts);
   };
 
+  // Function to handle quantity change
   const handleQuantityChange = (index, quantity) => {
     const updatedProducts = [...newProduct];
     updatedProducts[index].quantity = quantity;
     setNewProduct(updatedProducts);
   };
 
-  console.log(newProduct);
+  // Function to handle product selection
+  const handleSelect = (index) => {
+    const updatedProducts = newProduct.map((item, idx) => ({
+      ...item,
+      selected: idx === index,
+    }));
+    setNewProduct(updatedProducts);
+    setSerialData(updatedProducts[index]);
+  };
+
   return (
     <div className="flex flex-col gap-3 ">
+      {/* Mapping through newProduct state to render product entries */}
       {newProduct.map((product, index) => (
         <div className="grid gap-4 grid-cols-2" key={index}>
+          {/* Product Selection */}
           <div className="grid w-full items-center gap-1.5 relative">
             {index === 0 && <Label htmlFor="products">Products</Label>}
             <Select
               value={product.product}
-              onValueChange={(selectedOption)=>handleProductChange(index, selectedOption)}
+              onValueChange={(selectedOption) =>
+                handleProductChange(index, selectedOption)
+              }
             >
               <SelectTrigger className="h-14">
                 <SelectValue
@@ -59,7 +80,8 @@ function Products() {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex gap-4 w-full">
+          {/* Quantity Input and Select Button */}
+          <div className="grid grid-cols-2 gap-4 w-full">
             <div className="grid w-full items-center gap-1.5 relative">
               {index === 0 && <Label htmlFor="quantity">Quantity</Label>}
               <Input
@@ -69,13 +91,21 @@ function Products() {
                 onChange={(e) => handleQuantityChange(index, e.target.value)}
               />
             </div>
-            <Button variant="default" className="h-14 bg-blue-500">
-              Serial Number
+            <Button
+              variant="default"
+              className={`h-14 ${
+                product.selected ? "bg-zinc-400" : "bg-blue-500"
+              }`}
+              onClick={() => handleSelect(index)}
+            >
+              {/* Button text based on selection */}
+              {product.selected ? <span>Selected</span> : <span>Serial Number</span>}
             </Button>
           </div>
         </div>
       ))}
 
+      {/* Button to add a new product entry */}
       <span
         className="text-blue-500 mr-4 font-semibold text-sm text-right cursor-pointer"
         onClick={addNewProduct}
