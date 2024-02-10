@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Check-in Modal for Inventory Design
 
-## Getting Started
+This Check-in Modal for inventory is designed using the Shadcn UI library and integrated into a Next.js application. The modal facilitates the check-in process by allowing administrators to input their ID, specify product quantities, and view serial numbers for each product.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Admin ID Input Field
+- A text input field is provided for entering the Admin ID.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Product List with Quantity
+- Displays a list of products along with their respective quantities.
+- Each product is associated with an input field for specifying the quantity to check in.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Serial Number Button
+- Next to each product, there's a button labeled "Serial Numbers."
+- Clicking this button reveals a table displaying the serial numbers for the corresponding product.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Serial Number Table
+- A table is presented upon clicking the "Serial Numbers" button for a specific product.
+- Each serial number is listed in a separate row within the table.
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+- To check in inventory, start by entering the Admin ID in the designated input field.
+- For each product, input the quantity being checked in.
+- If serial numbers are needed, click the "Serial Numbers" button next to the respective product to view them in a table.
+- Ensure clear labels and instructions are provided for each input field to facilitate smooth usage.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Design Considerations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- The modal is designed to be user-friendly and intuitive, allowing for easy navigation.
+- Clear instructions and labels are provided for each input field to minimize user confusion.
+- Aesthetic appeal and responsiveness are maintained using the Shadcn UI library for styling and UI components.
 
-## Deploy on Vercel
+## Tools and Libraries
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Shadcn UI library**: Utilized for styling and UI components to ensure a visually appealing and consistent design.
+- **Next.js**: Integrated into a Next.js application for seamless rendering and server-side rendering capabilities.
